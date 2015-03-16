@@ -21,12 +21,6 @@ public class Runner {
 	static List<Double> line3 = new ArrayList<Double>();
 	static List<Double> line4 = new ArrayList<Double>();
 
-	static List<Double> lowProduct = new ArrayList<Double>();
-	static List<Double> medProduct = new ArrayList<Double>();
-	static List<Double> highProduct = new ArrayList<Double>();
-
-	static List<Double> favorList = new ArrayList<Double>();
-
 	public static final double LOW = 25;
 	public static final double MED = 50;
 	public static final double HIGH = 75;
@@ -36,7 +30,7 @@ public class Runner {
 
 	public static void main(String[] args) {
 
-		initgraph();
+		//initgraph();
 		fill();
 
 		// rolodex.actors.get(1).makeDeal(2, new Offer(1, 1.0, 0.0));
@@ -48,7 +42,7 @@ public class Runner {
 		for (int i = 0; i < 10000; i++) {
 			System.out.println(i);
 			makeDeals();
-			calc();
+			statistics();
 
 			// try {
 			// Thread.sleep(10, 0);
@@ -71,27 +65,15 @@ public class Runner {
 
 	private static void graph() {
 		graph1 = new Grapher(line1, new Color(255, 0, 0, 180));
-		graph2 = new Grapher(line2, new Color(0, 0, 255, 180));
-		graph3 = new Grapher(line3, new Color(0, 255, 0, 180));
-		graph4 = new Grapher(line4, new Color(0, 0, 0, 180));
-
-		graph1.setPreferredSize(new Dimension(800, 600));
-		graph2.setPreferredSize(new Dimension(800, 600));
-		graph3.setPreferredSize(new Dimension(800, 600));
-		graph4.setPreferredSize(new Dimension(800, 600));
-
-		JFrame frame = new JFrame("Graph1");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(graph1);
-		// frame.getContentPane().add(graph2);
-		// frame.getContentPane().add(graph3);
-		// frame.getContentPane().add(graph4);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		//graph2 = new Grapher(line2, new Color(0, 0, 255, 180));
+		//graph3 = new Grapher(line3, new Color(0, 255, 0, 180));
+		//graph4 = new Grapher(line4, new Color(0, 0, 0, 180));
+	
+		graph1.graphWindow("Graph");
+	
 	}
 
-	private static void calc() {
+	private static void statistics() {
 		double cashlowcount = 0;
 		double cashmedcount = 0;
 		double cashhighcount = 0;
@@ -182,7 +164,7 @@ public class Runner {
 		// System.out.println(lowproductthresh + " " + medproductthresh + " "
 		// + highproductthresh + " " + oneperproductthresh + "\n");
 
-		line1.add(highcashweight);
+		line1.add(cashlowcount);
 		line2.add(lowcashweight);
 		line3.add(cashhighcount);
 		line4.add(cashonepercount);

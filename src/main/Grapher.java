@@ -2,7 +2,7 @@ package main;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-//import java.awt.Dimension;
+import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +12,7 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.Random;
-//import javax.swing.JFrame;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 //import javax.swing.SwingUtilities;
 
@@ -40,7 +40,19 @@ public class Grapher extends JPanel {
         this.lineColor = new Color(44, 102, 230, 180);
     }
 
-    @Override
+	public void graphWindow(String name) {
+		
+		this.setPreferredSize(new Dimension(800,600));
+		
+		JFrame frame = new JFrame(name);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(this);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+    
+	@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
