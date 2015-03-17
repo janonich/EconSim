@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import actors.Actor;
+import actors.Rolodex;
 
 public class StatAnalysis {
 
