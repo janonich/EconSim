@@ -1,7 +1,5 @@
 package actors;
 
-import main.*;
-
 public class Actor {
 
 	int id;
@@ -9,22 +7,22 @@ public class Actor {
 	private int product;
 	private double cash;
 	private double favor;
-	private double[] weight;
+	private double[] utility;
 
 	public Actor() {
 		this(0, 0.0, 0, 0.0, 0.0, new double[] { 0.0, 0.0 });
 	}
 
 	public Actor(int id, double threshhold, int product, double cash,
-			double favor, double[] weight) {
+			double favor, double[] utility) {
 		this.id = id;
 		this.threshhold = threshhold / threshhold;
 		this.product = product;
 		this.cash = cash;
 		this.favor = favor;
-		this.weight = weight;
-		weight[0] /= threshhold;
-		weight[1] /= threshhold;
+		this.utility = utility;
+		utility[0] /= threshhold;
+		utility[1] /= threshhold;
 	}
 
 	public void setID(int id) {
@@ -36,8 +34,8 @@ public class Actor {
 	}
 
 	private boolean weigh(Offer offer) {
-		double weigh = weight[0] * offer.cash/* + weight[1] * offer.favor */
-				- weight[1] * offer.product;
+		double weigh = utility[0] * offer.cash/* + utility[1] * offer.favor */
+				- utility[1] * offer.product;
 
 		return weigh > threshhold;
 	}
@@ -72,7 +70,7 @@ public class Actor {
 			return;
 		}
 
-		if (Runner.rolodex.actors.get(id).considerDeal(offer)) {
+		if (Rolodex.actors.get(id).considerDeal(offer)) {
 
 			// System.out.print(" from ");
 			// this.say();
@@ -98,12 +96,12 @@ public class Actor {
 		return product;
 	}
 
-	public double getCashWeight() {
-		return weight[0];
+	public double getCashUtility() {
+		return utility[0];
 	}
 
-	public double getProductWeight() {
-		return weight[1];
+	public double getProductUtility() {
+		return utility[1];
 	}
 
 	public double getThresh() {
