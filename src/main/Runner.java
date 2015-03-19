@@ -6,10 +6,6 @@ import actors.*;
 
 public class Runner {
 
-	public static final double LOW = 25;
-	public static final double MED = 50;
-	public static final double HIGH = 75;
-
 	static Random rand = new Random();
 
 	public static void main(String[] args) {
@@ -23,9 +19,9 @@ public class Runner {
 		// Rolodex.actors.get(2).say();
 
 		for (int i = 0; i < 1000; i++) {
-			System.out.println(i);
+			System.out.println("Iteration: " + i);
 			makeDeals();
-			StatAnalysis.statistics();
+			StatAnalysis.addValues();
 
 			// try {
 			// Thread.sleep(10, 0);

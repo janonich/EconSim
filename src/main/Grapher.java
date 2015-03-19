@@ -10,7 +10,6 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.util.ArrayList;
-import java.util.List;
 //import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,14 +29,14 @@ public class Grapher extends JPanel {
 	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
 	private int pointWidth = 4;
 	private int numberYDivisions = 10;
-	private List<Double> scores;
+	private ArrayList<Double> scores;
 
-	public Grapher(List<Double> scores, Color color) {
+	public Grapher(ArrayList<Double> scores, Color color) {
 		this.scores = scores;
 		this.lineColor = color;
 	}
 
-	public Grapher(List<Double> scores) {
+	public Grapher(ArrayList<Double> scores) {
 		this.scores = scores;
 		this.lineColor = new Color(44, 102, 230, 180);
 	}
@@ -66,7 +65,7 @@ public class Grapher extends JPanel {
 		double yScale = ((double) getHeight() - 2 * padding - labelPadding)
 				/ (getMaxScore() - getMinScore());
 
-		List<Point> graphPoints = new ArrayList<>();
+		ArrayList<Point> graphPoints = new ArrayList<>();
 		for (int i = 0; i < scores.size(); i++) {
 			int x1 = (int) (i * xScale + padding + labelPadding);
 			int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
@@ -175,13 +174,13 @@ public class Grapher extends JPanel {
 		return maxScore;
 	}
 
-	public void setScores(List<Double> scores) {
+	public void setScores(ArrayList<Double> scores) {
 		this.scores = scores;
 		invalidate();
 		this.repaint();
 	}
 
-	public List<Double> getScores() {
+	public ArrayList<Double> getScores() {
 		return scores;
 	}
 }
