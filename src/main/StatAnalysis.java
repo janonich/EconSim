@@ -45,14 +45,16 @@ public class StatAnalysis {
 
 	public static void addValues() {
 
-		double cashLowCount = 0;
-		double cashMedCount = 0;
-		double cashHighCount = 0;
-		double cashOneperCount = 0;
-		double productLowCount = 0;
-		double productMedCount = 0;
-		double productHighCount = 0;
-		double productOneperCount = 0;
+		double[] tempvars = new double[index.size()];
+
+		 tempvars[index.get("cLC")] = 0;
+		 tempvars[index.get("cMC")] = 0;
+		 tempvars[index.get("cHC")] = 0;
+		 tempvars[index.get("cOC")] = 0;
+		 tempvars[index.get("pLC")] = 0;
+		 tempvars[index.get("pMC")] = 0;
+		 tempvars[index.get("pHC")] = 0;
+		 tempvars[index.get("pOC")] = 0;
 
 		// double cashLowThresh = 0;
 		// double cashMedThresh = 0;
@@ -64,83 +66,83 @@ public class StatAnalysis {
 		// double productHighThresh = 0;
 		// double productOneperThresh = 0;
 
-		double cashLowUtility = 0;
-		double cashMedUtility = 0;
-		double cashHighUtility = 0;
-		double cashOneperUtility = 0;
-		double productLowUtility = 0;
-		double productMedUtility = 0;
-		double productHighUtility = 0;
-		double productOneperUtility = 0;
+		 tempvars[index.get("cLU")] = 0;
+		 tempvars[index.get("cMU")] = 0;
+		 tempvars[index.get("cHU")] = 0;
+		 tempvars[index.get("cOU")] = 0;
+		 tempvars[index.get("pLU")] = 0;
+		 tempvars[index.get("pMU")] = 0;
+		 tempvars[index.get("pHU")] = 0;
+		 tempvars[index.get("pOU")] = 0;
 
 		for (Actor temp : Rolodex.actors) {
 			if (temp.getCash() < LOW) {
-				cashLowCount += 1;
-				cashLowUtility += temp.getCashUtility();
+				tempvars[index.get("cLC")] += 1;
+				tempvars[index.get("cLU")] += temp.getCashUtility();
 				// cashLowThresh += temp.getThresh();
 			} else if (temp.getCash() < MED) {
-				cashMedCount += 1;
-				cashMedUtility += temp.getCashUtility();
+				tempvars[index.get("cMC")] += 1;
+				tempvars[index.get("cMU")] += temp.getCashUtility();
 				// cashMedThresh += temp.getThresh();
 			} else if (temp.getCash() < HIGH) {
-				cashHighCount += 1;
-				cashHighUtility += temp.getCashUtility();
+				tempvars[index.get("cHC")] += 1;
+				tempvars[index.get("cHU")] += temp.getCashUtility();
 				// cashHighThresh += temp.getThresh();
 			} else {
-				cashOneperCount += 1;
-				cashOneperUtility += temp.getCashUtility();
+				tempvars[index.get("cOC")] += 1;
+				tempvars[index.get("cOU")] += temp.getCashUtility();
 				// cashOneperThresh += temp.getThresh();
 			}
 
 			if (temp.getProduct() < LOW) {
-				productLowCount += 1;
-				productLowUtility += temp.getProductUtility();
+				tempvars[index.get("pLC")] += 1;
+				tempvars[index.get("pLU")] += temp.getProductUtility();
 				// productLowThresh += temp.getThresh();
 			} else if (temp.getProduct() < MED) {
-				productMedCount += 1;
-				productMedUtility += temp.getProductUtility();
+				tempvars[index.get("pMC")] += 1;
+				tempvars[index.get("pMU")] += temp.getProductUtility();
 				// productMedThresh += temp.getThresh();
 			} else if (temp.getProduct() < HIGH) {
-				productHighCount += 1;
-				productHighUtility += temp.getProductUtility();
+				tempvars[index.get("pHC")] += 1;
+				tempvars[index.get("pHU")] += temp.getProductUtility();
 				// productHighThresh += temp.getThresh();
 			} else {
-				productOneperCount += 1;
-				productOneperUtility += temp.getProductUtility();
+				tempvars[index.get("pOC")] += 1;
+				tempvars[index.get("pOU")] += temp.getProductUtility();
 				// productOneperThresh += temp.getThresh();
 			}
 
 		}
 
-		cashLowUtility /= cashLowCount;
-		cashMedUtility /= cashMedCount;
-		cashHighUtility /= cashHighCount;
-		cashOneperUtility /= cashOneperCount;
-		productLowUtility /= productLowCount;
-		productMedUtility /= productMedCount;
-		productHighUtility /= productHighCount;
-		productOneperUtility /= productOneperCount;
+		tempvars[index.get("cLU")] /= tempvars[index.get("cLC")];
+		tempvars[index.get("cMU")] /= tempvars[index.get("cMC")];
+		tempvars[index.get("cHU")] /= tempvars[index.get("cHC")];
+		tempvars[index.get("cOU")] /= tempvars[index.get("cOC")];
+		tempvars[index.get("pLU")] /= tempvars[index.get("pLC")];
+		tempvars[index.get("pMU")] /= tempvars[index.get("pMC")];
+		tempvars[index.get("pHU")] /= tempvars[index.get("pHC")];
+		tempvars[index.get("pOU")] /= tempvars[index.get("pOC")];
 
-		System.out.println(cashLowCount + "\t,\t" + cashMedCount + "\t,\t"
-				+ cashHighCount + "\t,\t" + cashOneperCount);
-		System.out.println(productLowCount + "\t,\t" + productMedCount
-				+ "\t,\t" + productHighCount + "\t,\t" + productOneperCount);
-		System.out.println(cashLowUtility + " " + cashMedUtility + " "
-				+ cashHighUtility + " " + cashOneperUtility + " ");
-		System.out.println(productLowUtility + " " + productMedUtility + " "
-				+ productHighUtility + " " + productOneperUtility + " \n");
+		System.out.println(tempvars[index.get("cLC")] + "\t,\t" + tempvars[index.get("cMC")] + "\t,\t"
+				+ tempvars[index.get("cHC")] + "\t,\t" + tempvars[index.get("cOC")]);
+		System.out.println(tempvars[index.get("pLC")] + "\t,\t" + tempvars[index.get("pMC")]
+				+ "\t,\t" + tempvars[index.get("pHC")] + "\t,\t" + tempvars[index.get("pOC")]);
+		System.out.println(tempvars[index.get("cLU")] + " " + tempvars[index.get("cMU")] + " "
+				+ tempvars[index.get("cHU")] + " " + tempvars[index.get("cOU")] + " ");
+		System.out.println(tempvars[index.get("pLU")] + " " + tempvars[index.get("pMU")] + " "
+				+ tempvars[index.get("pHU")] + " " + tempvars[index.get("pOU")] + " \n");
 
 		// System.out.println(cashLowThresh + " " + cashMedThresh + " "
 		// + cashHighThresh + " " + cashOneperThresh + " ");
 		// System.out.println(productLowThresh + " " + productMedThresh + " "
 		// + productHighThresh + " " + productOneperThresh + "\n");
 
-		lines.get(index.get("cLC")).add(cashLowCount);
+		lines.get(index.get("cLU")).add(tempvars[index.get("cLU")]);
 
 	}
 
 	static void graph() {
-		graph1 = new Grapher(lines.get(index.get("cLC")), new Color(255, 0, 0,
+		graph1 = new Grapher(lines.get(index.get("cLU")), new Color(255, 0, 0,
 				180));
 		graph1.graphWindow("Graph");
 	}

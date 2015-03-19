@@ -35,7 +35,7 @@ public class Runner {
 	}
 
 	public static void fill() {
-		for (int id = 0; id < 1000; id++) {
+		for (int id = 0; id < 100000; id++) {
 			Rolodex.add(new Actor(id, rand.nextDouble(), rand.nextInt(100),
 					100 * rand.nextDouble(), 0, new double[] {
 							rand.nextDouble(), rand.nextDouble() }));
