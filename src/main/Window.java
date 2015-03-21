@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 //import javax.swing.SwingUtilities;
 
-public class Grapher extends JPanel {
+public class Window extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	// private int width = 800;
@@ -31,26 +31,14 @@ public class Grapher extends JPanel {
 	private int numberYDivisions = 10;
 	private ArrayList<Double> scores;
 
-	public Grapher(ArrayList<Double> scores, Color color) {
+	public Window(ArrayList<Double> scores, Color color) {
 		this.scores = scores;
 		this.lineColor = color;
 	}
 
-	public Grapher(ArrayList<Double> scores) {
+	public Window(ArrayList<Double> scores) {
 		this.scores = scores;
 		this.lineColor = new Color(44, 102, 230, 180);
-	}
-
-	public void graphWindow(String name) {
-
-		this.setPreferredSize(new Dimension(800, 600));
-
-		JFrame frame = new JFrame(name);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(this);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 
 	@Override

@@ -1,8 +1,11 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.*;
 
 import org.apache.commons.math3.stat.StatUtils;
 
@@ -79,17 +82,15 @@ public class StatAnalysis {
 				tempvars[index.get("pOC")] += 1;
 				tempvars[index.get("pOU")] += temp.getProductUtility();
 			}
-
 		}
-
-		tempvars[index.get("cLU")] /= tempvars[index.get("cLC")];
-		tempvars[index.get("cMU")] /= tempvars[index.get("cMC")];
-		tempvars[index.get("cHU")] /= tempvars[index.get("cHC")];
-		tempvars[index.get("cOU")] /= tempvars[index.get("cOC")];
-		tempvars[index.get("pLU")] /= tempvars[index.get("pLC")];
-		tempvars[index.get("pMU")] /= tempvars[index.get("pMC")];
-		tempvars[index.get("pHU")] /= tempvars[index.get("pHC")];
-		tempvars[index.get("pOU")] /= tempvars[index.get("pOC")];
+		tempvars[index.get("cLU")] /= (int) tempvars[index.get("cLC")];
+		tempvars[index.get("cMU")] /= (int) tempvars[index.get("cMC")];
+		tempvars[index.get("cHU")] /= (int) tempvars[index.get("cHC")];
+		tempvars[index.get("cOU")] /= (int) tempvars[index.get("cOC")];
+		tempvars[index.get("pLU")] /= (int) tempvars[index.get("pLC")];
+		tempvars[index.get("pMU")] /= (int) tempvars[index.get("pMC")];
+		tempvars[index.get("pHU")] /= (int) tempvars[index.get("pHC")];
+		tempvars[index.get("pOU")] /= (int) tempvars[index.get("pOC")];
 
 		System.out.println(tempvars[index.get("cLC")] + "\t,\t"
 				+ tempvars[index.get("cMC")] + "\t,\t"
@@ -110,17 +111,58 @@ public class StatAnalysis {
 
 	}
 
-	static double[] statistics(String key) {
+	static String statistics(String key) {
 
-		double[] temp = (double[]) (lines.get(index.get(key))).toArray();
-		double[] out = new double[100];
+		ArrayList<Double> templist = lines.get(index.get(key));
 
-		return null;
+		double[] temparray = new double[templist.size()];
+		for (int i = 0; i < templist.size(); i++) {
+			temparray[i] = templist.get(i);
+		}
+
+		double[] out = new double[6];
+
+		out[0] = StatUtils.min(temparray);
+		out[1] = StatUtils.max(temparray);
+		out[2] = StatUtils.mean(temparray);
+		out[3] = Math.sqrt(StatUtils.variance(temparray));
+		out[4] = StatUtils.percentile(temparray, 25);
+		out[5] = StatUtils.percentile(temparray, 75);
+
+		String outstring = "";
+		outstring += key + " Analysis: ";
+		outstring += "\nmin: " + out[0];
+		outstring += "\nmax: " + out[1];
+		outstring += "\nmean: " + out[2];
+		outstring += "\nstdev: " + out[3];
+		outstring += "\n25%: " + out[4];
+		outstring += "\n75: " + out[5];
+
+		return outstring;
 	}
 
-	static void graph() {
-		Grapher graph = new Grapher(lines.get(index.get("cLU")), new Color(255,
-				0, 0, 180));
-		graph.graphWindow("Graph");
+	static void graph(String key) {
+		Window graph = new Window(lines.get(index.get(key)), new Color(255, 0,
+				0, 180));
+
+		graph.setPreferredSize(new Dimension(800, 600));
+
+		JFrame frame = new JFrame("Results");
+		JPanel graphPanel = new JPanel();
+		JPanel statPanel = new JPanel();
+		frame.getContentPane().add(graphPanel, "West");
+		frame.getContentPane().add(statPanel, "East");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		graphPanel.add(graph);
+
+		// JTextArea actormakeup = new JTextArea();
+		// statPanel.add(actormakeup);
+		JTextArea linestats = new JTextArea(statistics(key));
+		statPanel.add(linestats);
+
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 }
