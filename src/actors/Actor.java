@@ -16,7 +16,7 @@ public class Actor {
 	public Actor(int id, double threshhold, int product, double cash,
 			double favor, double[] utility) {
 		this.id = id;
-		this.threshhold = threshhold / threshhold;
+		this.threshhold = 1;
 		this.product = product;
 		this.cash = cash;
 		this.favor = favor;
@@ -33,6 +33,7 @@ public class Actor {
 		System.out.print(id + "(" + product + ",$" + (int) cash + ")");
 	}
 
+	// evaluate the offer by the utility function
 	private boolean weigh(Offer offer) {
 		double weigh = utility[0] * offer.cash/* + utility[1] * offer.favor */
 				- utility[1] * offer.product;
@@ -40,11 +41,14 @@ public class Actor {
 		return weigh > threshhold;
 	}
 
+	// consider an offer
 	public boolean considerDeal(Offer offer) {
+		// make sure actor can satisfy offer
 		if (offer.product > this.product) {
 			return false;
 		}
 
+		// if the offer seems beneficial, take it
 		if (weigh(offer)) {
 
 			// System.out.print("\tto ");
@@ -62,15 +66,16 @@ public class Actor {
 
 	public void makeDeal(int id, Offer offer) {
 
-		if (offer.cash > this.cash /* || offer.favor > this.favor */) {
+		// make sure offer can be met and is beneficial
+		if (!weigh(offer) || offer.cash > this.cash /*
+													 * || offer.favor >
+													 * this.favor
+													 */) {
 			return;
 		}
 
-		if (!weigh(offer)) {
-			return;
-		}
-
-		if (Rolodex.actors.get(id).considerDeal(offer)) {
+		// pose the deal, take it if the other party agrees
+		if (Rolodex.get(id).considerDeal(offer)) {
 
 			// System.out.print(" from ");
 			// this.say();
@@ -81,6 +86,24 @@ public class Actor {
 			product += offer.product;
 			cash -= offer.cash;
 			// favor -= favor;
+		}
+	}
+
+	public double getKey(String key) {
+
+		switch (key) {
+		case "cash":
+			return cash;
+		case "product":
+			return product;
+		case "favor":
+			return favor;
+		case "cashUtility":
+			return utility[0];
+		case "productUtility":
+			return utility[1];
+		default:
+			return 0;
 		}
 	}
 
